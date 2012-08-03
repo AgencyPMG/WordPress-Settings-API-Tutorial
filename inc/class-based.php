@@ -131,11 +131,8 @@ class PMG_Settings_Tutorial
      */
     public static function field_cb($args)
     {
-        // settings name
-        $setting = 'pmgtut_setting';
-
         // get our options
-        $opts = get_option($setting, array());
+        $opts = get_option(self::SETTING, array());
 
         // Set up the value with a ternary statment
         $val = isset($opts[$args['key']]) ? $opts[$args['key']] : '';
@@ -143,7 +140,7 @@ class PMG_Settings_Tutorial
         // actually print the field
         printf(
             '<input type="text" class="regular-text" id="%1$s[%2$s]" name="%1$s[%2$s]" value="%3$s" />',
-            esc_attr($setting),
+            esc_attr(self::SETTING),
             esc_attr($args['key']),
             esc_attr($val)
         );
