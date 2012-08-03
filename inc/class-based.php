@@ -22,7 +22,7 @@ class PMG_Settings_Tutorial
      *
      * @since   1.0
      */
-    const PAGE = 'general';
+    const PAGE = 'sample_options_page';
 
     /**
      * Our section ID
@@ -43,6 +43,11 @@ class PMG_Settings_Tutorial
         add_action(
             'admin_init',
             array(__CLASS__, 'register')
+        );
+
+        add_action(
+            'admin_menu',
+            array(__CLASS__, 'menu_page')
         );
     }
 
@@ -122,7 +127,6 @@ class PMG_Settings_Tutorial
         return $clean;
     }
 
-
     /**
      * Example of a unified callback
      *
@@ -144,6 +148,50 @@ class PMG_Settings_Tutorial
             esc_attr($args['key']),
             esc_attr($val)
         );
+    }
+
+    /**
+     * Register a new admin page
+     *
+     * @since   1.0
+     * @access  public
+     * @uses    add_options_page
+     */
+    public static function menu_page()
+    {
+        $p = add_options_page(
+            __('Sample Options Page', 'pmg'),
+            __('Sample Options', 'pmg'),
+            'manage_options',
+            'pmg-sample-options',
+            array(__CLASS__, 'menu_page_cb')
+        );
+    }
+
+    /**
+     * Menu page callback function
+     *
+     * @since   1.0
+     * @access  public
+     * @uses    settings_field
+     * @uses    do_settings_section
+     * @uses    screen_icon
+     */
+    public static function menu_page_cb()
+    {
+        ?>
+        <div class="wrap">
+            <?php screen_icon(); ?>
+            <h2><?php esc_html_e('Sample Options Page', 'pmg'); ?></h2>
+            <form action="<?php echo admin_url('options.php'); ?>" method="post">
+                <?php
+                settings_fields(self::PAGE);
+                do_settings_sections(self::PAGE);
+                submit_button(__('Save Settings', 'pmg'));
+                ?>
+            </form>
+        </div>
+        <?php
     }
 } // end class
 
