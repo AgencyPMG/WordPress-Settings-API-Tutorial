@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Settings API Tutorial
-Plugin URI: 
+Plugin URI: https://github.com/AgencyPMG/WordPress-Settings-API-Tutorial
 Description: An example of how to use the settings API
 Version: 1.0
 Text Domain: pmg
